@@ -12,11 +12,11 @@ const passport = require('passport');
 
 const container = require('./container');
 
-container.resolve(function(users) {
+container.resolve(function(users, _) {
   mongoose.Promise = global.Promise;
   mongoose.connect(
     'mongodb://localhost/footballkik',
-    { useNewUrlParser: true }
+    { useNewUrlParser: true },
   );
 
   const app = SetupExpress();
@@ -51,13 +51,15 @@ container.resolve(function(users) {
         secret: 'sasadifjlk34jq32zsfj',
         resave: true,
         saveUninitialized: true,
-        store: new MongoStore({ mongooseConnection: mongoose.connection })
-      })
+        store: new MongoStore({ mongooseConnection: mongoose.connection }),
+      }),
     );
 
     app.use(flash());
 
     app.use(passport.initialize());
     app.use(passport.session());
+
+    app.locals._ = _;
   }
 });

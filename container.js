@@ -3,12 +3,15 @@ const path = require('path');
 
 const container = dependable.container();
 
-const simpleDependencies = [['_', 'lodash'], ['mongoose', 'mongoose'], ['passport', 'passport']];
+const simpleDependencies = [
+  ['_', 'lodash'],
+  ['passport', 'passport'],
+];
 
 simpleDependencies.forEach(val =>
   container.register(val[0], function() {
     return require(val[1]);
-  })
+  }),
 );
 
 container.load(path.join(__dirname, '/controllers'));
