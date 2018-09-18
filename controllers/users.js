@@ -1,4 +1,4 @@
-module.exports = function(_, passport, User) {
+module.exports = function(passport, User) {
   return {
     SetRouting: function(router) {
       router.get('/', this.indexPage);
